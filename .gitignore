@@ -2,6 +2,7 @@
 .gradle-home/
 .kotlin/
 .idea/
+.superpowers/
 .DS_Store
 local.properties
 app/build/
