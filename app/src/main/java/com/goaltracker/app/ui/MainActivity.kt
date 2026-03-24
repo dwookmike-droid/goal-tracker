@@ -95,9 +95,9 @@ private fun GoalTrackerApp(viewModel: GoalTrackerViewModel) {
         bottomBar = {
             NavigationBar {
                 val topLevelItems = listOf(
-                    Routes.Home to "Home",
-                    Routes.Projects to "Projects",
-                    Routes.Legacy to "Legacy",
+                    Routes.Home to "홈",
+                    Routes.Projects to "프로젝트",
+                    Routes.Legacy to "레거시",
                 )
                 topLevelItems.forEach { (route, label) ->
                     NavigationBarItem(
@@ -120,7 +120,7 @@ private fun GoalTrackerApp(viewModel: GoalTrackerViewModel) {
         floatingActionButton = {
             if (currentDestination?.route == Routes.Projects) {
                 FloatingActionButton(onClick = { navController.navigate(Routes.CreateProject) }) {
-                    Text("+")
+                    Text("추가")
                 }
             }
         },
@@ -154,7 +154,7 @@ private fun GoalTrackerApp(viewModel: GoalTrackerViewModel) {
             }
             composable(Routes.CreateProject) {
                 ProjectEditorScreen(
-                    title = "Create Project",
+                    title = "프로젝트 만들기",
                     project = null,
                     onSave = { title, intent, progress ->
                         viewModel.createProject(title, intent, progress)
@@ -170,7 +170,7 @@ private fun GoalTrackerApp(viewModel: GoalTrackerViewModel) {
                 val projectId = backStackEntry.arguments?.getLong("projectId") ?: return@composable
                 val detailState by viewModel.projectDetail(projectId).collectAsStateWithLifecycle()
                 ProjectEditorScreen(
-                    title = "Edit Project",
+                    title = "프로젝트 수정",
                     project = detailState.project,
                     onSave = { title, intent, progress ->
                         detailState.project?.let { project ->
@@ -234,21 +234,21 @@ private fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
-            Text("Goal Tracker", style = MaterialTheme.typography.headlineMedium)
+            Text("골 트래커", style = MaterialTheme.typography.headlineMedium)
         }
         item {
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Focus Project", fontWeight = FontWeight.Bold)
-                    Text(state.focusProject?.title ?: "No focus project selected yet")
-                    Text("Progress: ${state.focusProject?.progress ?: 0}%")
+                    Text("포커스 프로젝트", fontWeight = FontWeight.Bold)
+                    Text(state.focusProject?.title ?: "아직 포커스 프로젝트가 없다")
+                    Text("진행률: ${state.focusProject?.progress ?: 0}%")
                 }
             }
         }
         item {
             Card(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Legacy Support", fontWeight = FontWeight.Bold)
+                    Text("레거시 응원", fontWeight = FontWeight.Bold)
                     Text(state.supportMessage)
                 }
             }
@@ -259,8 +259,8 @@ private fun HomeScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Active Projects", style = MaterialTheme.typography.titleMedium)
-                TextButton(onClick = onProjectsClick) { Text("Manage") }
+                Text("진행 중 프로젝트", style = MaterialTheme.typography.titleMedium)
+                TextButton(onClick = onProjectsClick) { Text("관리") }
             }
         }
         items(state.activeProjects.take(10), key = { it.id }) { project ->
@@ -284,16 +284,16 @@ private fun ProjectsScreen(
     ) {
         item {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("Projects", style = MaterialTheme.typography.headlineMedium)
-                TextButton(onClick = onAddClick) { Text("New") }
+                Text("프로젝트", style = MaterialTheme.typography.headlineMedium)
+                TextButton(onClick = onAddClick) { Text("새로 만들기") }
             }
         }
-        item { Text("Active", fontWeight = FontWeight.Bold) }
+        item { Text("진행 중", fontWeight = FontWeight.Bold) }
         items(activeProjects, key = { it.id }) { project ->
             ProjectRow(project = project, onClick = { onProjectClick(project.id) })
         }
         item { Spacer(modifier = Modifier.height(8.dp)) }
-        item { Text("Completed", fontWeight = FontWeight.Bold) }
+        item { Text("완료", fontWeight = FontWeight.Bold) }
         items(completedProjects, key = { it.id }) { project ->
             ProjectRow(project = project, onClick = { onProjectClick(project.id) })
         }
@@ -310,12 +310,12 @@ private fun ProjectRow(project: ProjectEntity, onClick: () -> Unit) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(project.title, fontWeight = FontWeight.Bold)
-                if (project.isFocus) Text("FOCUS", color = MaterialTheme.colorScheme.primary)
+                if (project.isFocus) Text("포커스", color = MaterialTheme.colorScheme.primary)
             }
             if (project.intent.isNotBlank()) {
                 Text(project.intent)
             }
-            Text("Progress ${project.progress}%")
+            Text("진행률 ${project.progress}%")
         }
     }
 }
@@ -351,21 +351,21 @@ private fun ProjectEditorScreen(
             value = projectTitle,
             onValueChange = { projectTitle = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Project title") },
+            label = { Text("프로젝트 제목") },
         )
         OutlinedTextField(
             value = intent,
             onValueChange = { intent = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Intent") },
+            label = { Text("의도") },
         )
-        Text("Progress ${progress}%")
+        Text("진행률 ${progress}%")
         Slider(value = progress.toFloat(), onValueChange = { progress = it.toInt() }, valueRange = 0f..100f)
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Button(onClick = { onSave(projectTitle.trim(), intent.trim(), progress) }, enabled = projectTitle.isNotBlank()) {
-                Text("Save")
+                Text("저장")
             }
-            TextButton(onClick = onCancel) { Text("Cancel") }
+            TextButton(onClick = onCancel) { Text("취소") }
         }
     }
 }
@@ -382,7 +382,7 @@ private fun ProjectDetailScreen(
 ) {
     if (project == null) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Project not found")
+            Text("프로젝트를 찾을 수 없다")
         }
         return
     }
@@ -397,21 +397,21 @@ private fun ProjectDetailScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(project.title, style = MaterialTheme.typography.headlineMedium)
-        Text(project.intent.ifBlank { "No intent added yet." })
-        Text("Progress ${project.progress}%")
+        Text(project.intent.ifBlank { "아직 의도가 입력되지 않았다." })
+        Text("진행률 ${project.progress}%")
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Support", fontWeight = FontWeight.Bold)
+                Text("응원", fontWeight = FontWeight.Bold)
                 Text(supportMessage)
             }
         }
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Button(onClick = onSetFocus) { Text("Set Focus") }
-            TextButton(onClick = onEdit) { Text("Edit") }
-            TextButton(onClick = onComplete) { Text("Complete") }
+            Button(onClick = onSetFocus) { Text("포커스로 지정") }
+            TextButton(onClick = onEdit) { Text("수정") }
+            TextButton(onClick = onComplete) { Text("완료") }
         }
         HorizontalDivider()
-        Text("Milestones", fontWeight = FontWeight.Bold)
+        Text("마일스톤", fontWeight = FontWeight.Bold)
         milestones.forEach { milestone ->
             Text("• ${milestone.title}")
         }
@@ -419,7 +419,7 @@ private fun ProjectDetailScreen(
             value = milestoneTitle,
             onValueChange = { milestoneTitle = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Add milestone") },
+            label = { Text("마일스톤 추가") },
         )
         Button(
             onClick = {
@@ -428,7 +428,7 @@ private fun ProjectDetailScreen(
             },
             enabled = milestoneTitle.isNotBlank(),
         ) {
-            Text("Add Milestone")
+            Text("마일스톤 추가")
         }
     }
 }
@@ -449,28 +449,28 @@ private fun CompleteProjectScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text("Complete Project", style = MaterialTheme.typography.headlineMedium)
+        Text("프로젝트 완료", style = MaterialTheme.typography.headlineMedium)
         Text(project?.title ?: "")
         OutlinedTextField(
             value = achievement,
             onValueChange = { achievement = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Achievement summary") },
+            label = { Text("성취 요약") },
         )
         OutlinedTextField(
             value = lesson,
             onValueChange = { lesson = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Lesson learned") },
+            label = { Text("배운 점") },
         )
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Button(
                 onClick = { onComplete(achievement.trim(), lesson.trim()) },
                 enabled = achievement.isNotBlank() && lesson.isNotBlank(),
             ) {
-                Text("Save Legacy")
+                Text("레거시 저장")
             }
-            TextButton(onClick = onCancel) { Text("Cancel") }
+            TextButton(onClick = onCancel) { Text("취소") }
         }
     }
 }
@@ -484,19 +484,19 @@ private fun LegacyScreen(items: List<LegacyListItem>) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
-            Text("Legacy", style = MaterialTheme.typography.headlineMedium)
+            Text("레거시", style = MaterialTheme.typography.headlineMedium)
         }
         if (items.isEmpty()) {
             item {
-                Text("Complete a project to start your legacy.")
+                Text("프로젝트를 완료하면 레거시가 시작된다.")
             }
         } else {
             items(items, key = { it.id }) { item ->
                 Card(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(item.projectTitle, fontWeight = FontWeight.Bold)
-                        Text("Achievement: ${item.achievement}")
-                        Text("Lesson: ${item.lesson}")
+                        Text("성취: ${item.achievement}")
+                        Text("배운 점: ${item.lesson}")
                     }
                 }
             }

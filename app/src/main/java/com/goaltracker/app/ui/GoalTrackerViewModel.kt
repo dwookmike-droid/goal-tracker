@@ -26,7 +26,7 @@ class GoalTrackerViewModel(
         initialValue = HomeState(
             focusProject = null,
             activeProjects = emptyList(),
-            supportMessage = "Start your first project and build your legacy.",
+            supportMessage = "첫 프로젝트를 시작하고 너의 레거시를 쌓아라.",
         ),
     )
 

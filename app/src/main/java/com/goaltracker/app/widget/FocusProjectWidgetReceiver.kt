@@ -44,7 +44,7 @@ class FocusProjectWidgetReceiver : AppWidgetProvider() {
             )
             return RemoteViews(context.packageName, R.layout.widget_focus_project).apply {
                 setTextViewText(R.id.widget_title, snapshot.title)
-                setTextViewText(R.id.widget_progress, "Progress ${snapshot.progress}%")
+                setTextViewText(R.id.widget_progress, "진행률 ${snapshot.progress}%")
                 setTextViewText(R.id.widget_support, snapshot.supportMessage)
                 setOnClickPendingIntent(R.id.widget_root, pendingIntent)
             }

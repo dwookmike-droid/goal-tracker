@@ -1,128 +1,127 @@
-# Android Goal Tracker MVP Design
+# 안드로이드 골 트래커 MVP 설계
 
-## Product Definition
+## 제품 정의
 
-This product is an Android-first personal goal tracker focused on running multiple projects while turning completed projects into visible support for current work.
+이 제품은 여러 프로젝트를 동시에 운영하면서, 완료된 프로젝트를 현재 작업의 응원과 근거로 다시 사용하는 안드로이드 우선 개인용 골 트래커다.
 
-The release target is a real installable APK by the end of 2026-03-24.
+출시 목표는 `2026-03-24` 안에 실제 설치 가능한 APK를 만드는 것이다.
 
-## Delivery Constraint
+## 일정 제약
 
-This is a one-day MVP release. Scope must be limited to features that can be designed, built, tested, and packaged today.
+오늘 안에 설계, 구현, 테스트, 패키징을 끝내야 하므로 범위를 강하게 줄여야 한다.
 
-Because of that, the product must prioritize:
+우선순위:
 
-- working Android app over broad feature coverage
-- stable local data over integrations
-- one strong widget over multiple widget types
-- simple support logic over AI generation
+- 넓은 기능보다 실제로 동작하는 안드로이드 앱
+- 외부 연동보다 안정적인 로컬 데이터
+- 여러 위젯보다 강한 위젯 1종
+- AI 생성보다 단순하고 확실한 템플릿 로직
 
-## Core Product Angle
+## 핵심 차별점
 
-Most goal trackers handle tasks, habits, or projects. This MVP should prove one specific difference:
+대부분의 골 트래커는 할 일, 습관, 프로젝트를 관리한다.  
+이 MVP는 아래 한 가지를 증명해야 한다.
 
-"Completed projects stay alive as legacy and support current projects."
+`완료된 프로젝트는 레거시로 남고, 현재 프로젝트를 밀어준다.`
 
-## Platform And Stack
+## 플랫폼과 기술 스택
 
-- Platform: Android
-- Release artifact: APK
+- 플랫폼: 안드로이드
+- 배포 산출물: APK
 - UI: Kotlin + Jetpack Compose
-- Persistence: Room or equivalent local database
-- Widget: Android App Widget via Glance or RemoteViews based on implementation speed
+- 저장소: Room 기반 로컬 DB
+- 위젯: Android App Widget
 
-## MVP Users
+## 타깃 사용자
 
-- individual Android users
-- people juggling multiple personal projects
-- users who want motivation tied to their real history
+- 개인 안드로이드 사용자
+- 여러 개인 프로젝트를 동시에 굴리는 사람
+- 실제 내 과거 기록에서 동기부여를 받고 싶은 사람
 
-## MVP Scope
+## MVP 범위
 
-The MVP includes only these user-facing areas.
+### 1. 홈
 
-### 1. Home
+홈은 세 가지를 즉시 보여줘야 한다.
 
-Home must answer three questions immediately:
+- 지금 내가 밀고 있는 포커스 프로젝트가 무엇인지
+- 현재 진행 중인 프로젝트가 무엇인지
+- 내가 이걸 끝낼 수 있다는 근거가 무엇인지
 
-- what is my focus project
-- what else is active
-- what proof do I have that I can finish this
+구성:
 
-Contents:
+- 포커스 프로젝트 카드
+- 진행 중 프로젝트 목록
+- 완료 프로젝트 기반 응원 문구 1개
+- 빠른 진척 확인 진입점
 
-- focus project card
-- active projects list
-- one support message derived from completed projects
-- quick progress update entry point
+### 2. 프로젝트
 
-### 2. Projects
+프로젝트 관리는 최소 기능만 안정적으로 제공한다.
 
-Project management must be minimal and reliable.
+지원 동작:
 
-Supported actions:
+- 프로젝트 생성
+- 프로젝트 수정
+- 프로젝트 완료 처리
+- 포커스 프로젝트 지정
 
-- create project
-- edit project
-- mark project complete
-- set focus project
+지원 상태:
 
-Supported states:
+- 진행 중
+- 완료
 
-- active
-- completed
+이번 MVP에서 제외:
 
-Not included in MVP:
+- 일시정지
+- 고급 필터
+- 복잡한 태그 UI
 
-- paused
-- archived filters beyond completed list
-- advanced tags or categories UI
+### 3. 프로젝트 상세
 
-### 3. Project Detail
+각 프로젝트는 실제로 운영 가능한 최소 정보만 가진다.
 
-Each project needs only the information required to feel real and trackable.
+필드:
 
-Fields:
+- 제목
+- 의도
+- 진행률
+- 마일스톤 목록
+- 선택 메모
 
-- title
-- intent
-- progress percentage
-- milestone list
-- optional note
+동작:
 
-Actions:
+- 진행률 수정
+- 마일스톤 추가
+- 완료 처리 시작
 
-- update progress
-- add milestone
-- complete project
+### 4. 레거시 저장
 
-### 4. Legacy Capture
+프로젝트 완료 시 바로 레거시를 입력받고 저장해야 한다.
 
-Completion must trigger legacy capture before the project becomes completed history.
+필수 입력:
 
-Required fields at completion:
+- 이번 프로젝트의 성취 한 줄
+- 배운 점 한 줄
 
-- achievement summary
-- lesson learned
+선택 입력:
 
-Optional for MVP:
+- 대표 결과물
+- 상징 문장
 
-- proud result
-- symbolic line
+### 5. 위젯
 
-### 5. Widget
+MVP는 위젯 1종만 출시한다.
 
-The MVP ships with one widget only:
+- 포커스 프로젝트 위젯
 
-- Focus Project Widget
+위젯 구성:
 
-Widget contents:
+- 포커스 프로젝트 제목
+- 진행률
+- 레거시가 있으면 짧은 응원 문구
 
-- focus project title
-- progress percentage
-- one short support line if legacy exists
-
-## Data Model
+## 데이터 모델
 
 ### Project
 
@@ -152,136 +151,134 @@ Widget contents:
 - lesson
 - createdAt
 
-## Support Engine
+## 응원 엔진
 
-The support engine must be deterministic and template-based.
+응원 엔진은 결정론적이고 템플릿 기반이어야 한다.
 
-Inputs:
+입력:
 
-- completed project count
-- latest achievement text
-- whether the user has any completed projects
+- 완료 프로젝트 수
+- 최근 레거시의 배운 점
+- 완료 이력 존재 여부
 
-Output examples:
+출력 예시:
 
-- "You already finished 3 projects."
-- "Past work proves you can finish this one too."
-- "Last lesson: ship before it feels perfect."
+- `너는 이미 3개의 프로젝트를 끝냈다.`
+- `과거 작업이 이번 프로젝트도 끝낼 수 있다는 증거다.`
+- `최근 배운 점: 완벽해지기 전에 먼저 배포하기.`
 
-Rules:
+원칙:
 
-- keep messages under one short sentence
-- use user-authored legacy where available
-- no generic inspirational filler
+- 한 문장으로 짧게 유지
+- 가능하면 사용자가 직접 쓴 레거시를 사용
+- 뜬구름 잡는 동기부여 문구는 금지
 
-## Information Architecture
+## 정보 구조
 
-Bottom navigation:
+하단 탭:
 
-- Home
-- Projects
-- Legacy
+- 홈
+- 프로젝트
+- 레거시
 
-Primary screens:
+핵심 화면:
 
-1. Home
-2. Project List
-3. Project Detail
-4. Create/Edit Project
-5. Complete Project / Legacy Capture
-6. Legacy List
+1. 홈
+2. 프로젝트 목록
+3. 프로젝트 상세
+4. 프로젝트 생성/수정
+5. 프로젝트 완료/레거시 저장
+6. 레거시 목록
 
-## Design Priorities
+## 디자인 우선순위
 
-The UI should feel calm, direct, and Android-native.
+UI는 차분하고, 직접적이며, 안드로이드 네이티브스럽게 보여야 한다.
 
-Priorities:
+우선순위:
 
-- fast project scanning
-- clear focus hierarchy
-- low-friction completion flow
-- strong contrast for widget readability
+- 프로젝트 스캔 속도
+- 포커스 계층의 명확함
+- 완료 흐름의 마찰 최소화
+- 위젯 가독성
 
-## Team Split
+## 팀 분업
 
-### Design Team
+### 디자인팀
 
-Design ownership for today:
+오늘 기준 담당:
 
-- define Android visual direction
-- produce four final screens:
-  - Home
-  - Project List
-  - Project Detail
-  - Complete Project / Legacy Capture
-- define one widget layout
-- define tokens:
-  - colors
-  - typography
-  - spacing
-  - card style
-  - button style
+- 안드로이드 비주얼 방향 정의
+- 최종 화면 4개 확정
+  - 홈
+  - 프로젝트 목록
+  - 프로젝트 상세
+  - 완료/레거시 저장
+- 위젯 1종 레이아웃 정의
+- 토큰 정의
+  - 색상
+  - 타이포
+  - 간격
+  - 카드 스타일
+  - 버튼 스타일
 
-Design deliverables should optimize for implementation speed, not exploration breadth.
+핵심은 탐색 폭이 아니라 구현 속도다.
 
-### Engineering Team
+### 기술팀
 
-Engineering ownership for today:
+오늘 기준 담당:
 
-- scaffold Android app
-- implement local persistence
-- build project CRUD
-- implement focus project logic
-- implement completion to legacy flow
-- implement support message logic
-- implement home widget
-- generate release-ready APK
+- 앱 스캐폴드
+- 로컬 데이터 저장
+- 프로젝트 CRUD
+- 포커스 프로젝트 로직
+- 완료 후 레거시 흐름
+- 홈 응원 문구 로직
+- 홈 위젯
+- APK 생성
 
-## Build Order
+## 구현 순서
 
-1. app scaffold and navigation
-2. local data layer
-3. project list and create flow
-4. project detail and progress updates
-5. completion to legacy flow
-6. home support message logic
-7. widget
-8. APK packaging and smoke test
+1. 앱 스캐폴드와 내비게이션
+2. 로컬 데이터 계층
+3. 프로젝트 목록과 생성 흐름
+4. 프로젝트 상세와 진행률 수정
+5. 완료 후 레거시 저장
+6. 홈 응원 문구
+7. 위젯
+8. APK 패키징과 스모크 테스트
 
-## Non-Goals
+## 비범위
 
-Do not build these today:
+오늘 만들지 않는 것:
 
-- login
-- sync
-- cloud backup
-- team collaboration
-- multiple widget types
-- analytics dashboard
-- Android tablet optimization
+- 로그인
+- 동기화
+- 클라우드 백업
+- 팀 협업
+- 여러 위젯 타입
+- 분석 대시보드
+- 태블릿 최적화
 - iOS
 
-## Success Criteria
+## 성공 기준
 
-The MVP is successful today if:
+오늘 MVP가 성공이라고 볼 조건:
 
-- the APK installs on Android
-- the user can create multiple projects
-- one project can be marked as focus
-- a project can be completed and turned into legacy
-- home shows a support line based on legacy
-- the widget shows the current focus project
+- APK가 실제로 설치된다
+- 여러 프로젝트를 생성할 수 있다
+- 포커스 프로젝트 1개를 지정할 수 있다
+- 프로젝트 완료 시 레거시로 전환된다
+- 홈에서 레거시 기반 응원 문구가 보인다
+- 위젯이 포커스 프로젝트를 보여준다
 
-## Risk Notes
+## 리스크
 
-1. The widget can become a release blocker if implemented too late.
-2. Room plus widget refresh integration must stay simple.
-3. Over-design from the design team will slow delivery.
+1. 위젯은 늦게 붙이면 출시 블로커가 된다.
+2. Room과 위젯 갱신 연결은 단순해야 한다.
+3. 디자인 과욕은 구현 속도를 떨어뜨린다.
 
-## Recommendation
+## 결론
 
-Ship the smallest version that proves the core idea:
+가장 먼저 증명해야 하는 건 기능 수가 아니라 이 제품의 관점이다.
 
-"My past completed projects still help me move my current project forward."
-
-Everything else can wait until after the first APK is in users' hands.
+`끝난 프로젝트는 사라지지 않는다. 현재 프로젝트를 계속 밀어준다.`

@@ -1,271 +1,223 @@
-# Goal Tracker Design
+# 골 트래커 설계
 
-## Product Definition
+## 제품 정의
 
-Goal Tracker is a personal iPhone-first app for running multiple projects at the same time while using completed projects as a source of motivation for current work.
+골 트래커는 여러 프로젝트를 동시에 운영하면서, 완료된 프로젝트를 현재 작업의 동기와 근거로 다시 사용하는 개인용 목표 관리 앱이다.
 
-This product is not just a habit tracker or a task list. Its core angle is:
+이 제품은 단순한 습관 앱이나 할 일 앱이 아니다. 핵심은 아래 네 가지다.
 
-- active project management
-- legacy preservation for completed projects
-- emotional support generated from past achievements
-- widget-first daily visibility
+- 프로젝트 중심 관리
+- 완료 프로젝트의 레거시 보존
+- 과거 성취 기반의 응원
+- 위젯 중심의 일상 노출
 
-## Problem
+## 문제 정의
 
-Existing goal trackers are usually strong in one of these areas:
+기존 목표 앱은 보통 아래 중 하나에 강하다.
 
-- daily execution
-- habits and streaks
-- project planning
-- team collaboration
+- 일일 실행
+- 습관과 연속성
+- 프로젝트 계획
+- 팀 협업
 
-But they rarely connect finished projects back into the user's current momentum. Completed work is usually archived, hidden, or reduced to a completion count.
+하지만 완료된 프로젝트를 현재의 추진력과 연결하는 경우는 거의 없다.  
+대부분 완료 목록으로만 남거나 보관함 뒤로 숨는다.
 
-The gap is a system where:
+우리가 노리는 간극은 이거다.
 
-- a finished project remains part of the user's identity
-- past effort becomes visible proof for current effort
-- the home screen keeps this motivation active through widgets
+- 완료한 프로젝트가 내 정체성으로 남아야 한다
+- 과거의 노력이 현재 프로젝트의 증거가 되어야 한다
+- 홈 화면과 위젯이 이 연결을 계속 보여줘야 한다
 
-## Target User
+## 타깃 사용자
 
-Primary target for v1:
+v1의 핵심 타깃:
 
-- individual users
-- iPhone users
-- people running several personal projects in parallel
-- creators, builders, students, founders, and self-directed workers
+- 개인 사용자
+- 여러 프로젝트를 동시에 운영하는 사람
+- 할 일보다 프로젝트 맥락을 중요하게 보는 사람
+- 생산성 수치뿐 아니라 감정적 보상에도 반응하는 사람
 
-User profile:
+## 제품 원칙
 
-- often has more than one meaningful project
-- wants visible progress, not only tasks
-- wants completed projects to remain meaningful
-- responds to emotional reinforcement, not only productivity metrics
+1. 할 일보다 프로젝트
+앱의 중심은 프로젝트의 의미와 진척이다.
 
-## Product Principles
+2. 레거시는 수동 보관이 아니다
+완료한 프로젝트는 현재에 계속 영향을 줘야 한다.
 
-1. Projects over tasks
-The product centers on project identity and progress, not just isolated to-dos.
+3. 위젯은 부가 기능이 아니다
+홈 화면에서도 제품의 핵심 가치가 보여야 한다.
 
-2. Legacy is active, not passive
-Completed projects should continue to influence the present.
+4. 10개 이상의 프로젝트도 관리 가능해야 한다
+프로젝트 수가 많아져도 복잡하게 무너지면 안 된다.
 
-3. Widgets are part of the product, not an add-on
-The home screen should carry the product's core value.
+5. 응원은 실제 근거에서 와야 한다
+기계적인 명언보다 사용자의 실제 기록이 중요하다.
 
-4. Ten-plus projects must remain manageable
-The app should support users with many concurrent or paused projects without feeling crowded.
+## MVP 범위
 
-5. Motivation should feel earned
-Support messages must come from the user's real history, not generic quotes.
+### 1. 홈
 
-## MVP Scope
+목적:
 
-The first release includes five core areas:
+- 지금의 추진력을 한눈에 보여주기
+- 현재 작업과 레거시 응원을 연결하기
 
-### 1. Home
+구성:
 
-Purpose:
+- 포커스 프로젝트
+- 진행 중 프로젝트 요약
+- 빠른 체크인
+- 레거시 응원 문구
+- 현재 진행 스냅샷
 
-- show the user's current momentum at a glance
-- connect active work with legacy support
+### 2. 프로젝트 목록
 
-Contents:
+목적:
 
-- primary focus project
-- active projects summary
-- quick daily check-in
-- legacy support message
-- progress snapshot
+- 많은 프로젝트를 낮은 마찰로 관리하기
 
-### 2. Project List
+구성:
 
-Purpose:
+- 진행 중 / 일시정지 / 완료 구분
+- 10개 이상 프로젝트 지원
+- 우선순위 / 최근순 / 진행률 정렬
+- 빠른 생성
 
-- let users manage many projects with low friction
+### 3. 프로젝트 상세
 
-Contents:
+목적:
 
-- sections for active, paused, and completed projects
-- support for more than 10 projects
-- sort by priority, recency, or progress
-- quick project creation
+- 각 프로젝트가 단순한 레코드가 아니라 여정처럼 느껴지게 만들기
 
-### 3. Project Detail
+구성:
 
-Purpose:
+- 제목과 의도
+- 상태와 기간
+- 진행률
+- 마일스톤
+- 메모
+- 하루 집중 기록
 
-- make each project feel like an owned journey, not a flat record
+### 4. 레거시 보관함
 
-Contents:
+목적:
 
-- title and intent
-- status and timeline
-- progress value
-- milestone list
-- notes
-- optional daily focus entry
+- 끝난 프로젝트를 의미 있는 자산으로 보존하기
 
-### 4. Legacy Vault
+구성:
 
-Purpose:
+- 완료 프로젝트 아카이브
+- 핵심 성취
+- 배운 점
+- 대표 결과물
+- 상징 문장
 
-- preserve ended projects as meaningful assets
+### 5. 위젯
 
-Contents:
+목적:
 
-- completed project archive
-- key achievement
-- lesson learned
-- proud result
-- symbolic line or quote
+- 앱 바깥에서도 방향성과 동기를 유지하기
 
-### 5. Widgets
+초기 위젯 세트:
 
-Purpose:
+- 포커스 프로젝트 위젯
+- 진행률 링 위젯
+- 레거시 응원 위젯
 
-- keep motivation and direction visible outside the app
+## 핵심 기능
 
-Initial widget set:
+### A. 위젯 시스템
 
-- Focus Project Widget
-- Progress Ring Widget
-- Legacy Support Widget
+이 앱에서 위젯은 선택 요소가 아니라 핵심 선택 이유다.
 
-## Core Feature Details
+요구사항:
 
-### Feature A. Widget System
+- 선택된 포커스 프로젝트 표시
+- 현재 진행률 즉시 확인
+- 레거시 기반 응원 문구 선택 표시
+- 프로젝트 상태 변경 시 빠른 갱신
 
-The widget system is one of the main reasons to choose this app over a generic tracker.
+### B. 레거시 관리
 
-Requirements:
+이 기능이 제품의 가장 선명한 차별점이다.
 
-- show one selected focus project
-- show current progress at a glance
-- optionally show a legacy-derived support line
-- refresh whenever project state changes
+프로젝트가 끝나면 단순 보관이 아니라 레거시 객체가 된다.
 
-Widget concepts:
+각 완료 프로젝트는 아래를 남겨야 한다.
 
-1. Focus Project
-- project name
-- current percentage
-- today's short focus text
+- 무엇을 해냈는지
+- 무엇을 배웠는지
+- 지금 돌아보면 무엇이 가장 중요한지
+- 어떤 결과물이 대표적인지
+- 어떤 문장이 상징인지
 
-2. Progress Ring
-- circular progress
-- milestone count or days left
+레거시는 두 가지 방식으로 쓰인다.
 
-3. Legacy Support
-- short line generated from previous completed projects
-- examples:
-  - "You already finished 7 projects."
-  - "This project follows the path of Design Sprint Archive."
-  - "Past you already solved a similar phase."
+- 아카이브 탐색
+- 현재 프로젝트 응원 생성
 
-### Feature B. Legacy Management
+### C. 응원 엔진
 
-This is the product's clearest differentiator.
+응원 엔진은 레거시를 현재 시점의 메시지로 바꾼다.
 
-When a project is completed, it does not disappear into storage. It becomes a legacy object with narrative meaning.
+v1은 AI 생성이 필요 없다. 템플릿 기반이면 충분하다.
 
-Each completed project should capture:
+입력:
 
-- what was achieved
-- what was learned
-- what matters most in hindsight
-- what result best represents the project
-- one symbolic supporting phrase
+- 완료 프로젝트 수
+- 유사 카테고리 경험
+- 최근 성취
+- 사용자가 직접 쓴 상징 문장
 
-Legacy must be usable in two ways:
+출력:
 
-- archive browsing
-- support generation for active projects
+- 홈 응원 문구
+- 프로젝트 상세 응원 문구
+- 위젯 응원 문구
 
-### Feature C. Support Engine
+원칙:
 
-The support engine turns legacy records into present-tense encouragement.
+- 근거 기반이어야 한다
+- 일반적인 자기계발 문구처럼 느껴지면 안 된다
 
-v1 does not need AI generation. Template-based composition is sufficient.
+### D. 멀티 프로젝트 처리
 
-Inputs:
+이 제품은 10개 이상의 프로젝트를 편하게 운영할 수 있어야 한다.
 
-- count of completed projects
-- matching category or theme
-- similar project history
-- recent wins
-- user-written symbolic phrases
+요구사항:
 
-Outputs:
+- 진행 중 / 일시정지 / 완료 분리
+- 프로젝트 간 빠른 전환
+- 단일 목표 강제 금지
+- 프로젝트 수가 늘어도 UI가 무너지지 않을 것
 
-- short support messages on home
-- support messages on project detail
-- support messages on widget
+v1 권장 모델:
 
-Design rule:
+- 포커스 프로젝트 1개
+- 진행 중 프로젝트 여러 개
+- 일시정지 프로젝트 선택 지원
+- 완료 프로젝트는 자동으로 레거시로 이동
 
-- support should feel grounded in prior evidence
-- avoid generic motivation language
+## 정보 구조
 
-### Feature D. Multi-Project Handling
+하단 내비게이션:
 
-The product must comfortably support 10 or more projects.
+- 홈
+- 프로젝트
+- 레거시
+- 설정
 
-Requirements:
+화면 구조:
 
-- visible status separation: active, paused, completed
-- lightweight switching between projects
-- no forced single-goal mode
-- no clutter collapse when project count grows
+1. 홈
+2. 프로젝트 목록
+3. 프로젝트 상세
+4. 레거시 목록
+5. 설정
 
-Recommended management model for v1:
-
-- one focus project
-- many active projects
-- optional paused projects
-- completed projects move into legacy automatically
-
-## Suggested Information Architecture
-
-Bottom navigation for v1:
-
-- Home
-- Projects
-- Legacy
-- Settings
-
-Screen map:
-
-1. Home
-- focus project card
-- active project strip
-- support message block
-- quick check-in entry
-
-2. Projects
-- active tab
-- paused tab
-- completed tab
-- create project flow
-
-3. Project Detail
-- overview
-- milestones
-- notes
-- support section
-
-4. Legacy
-- archive list
-- legacy detail
-
-5. Settings
-- widget preferences
-- support tone preferences
-- sorting preferences
-
-## Data Model
+## 데이터 모델
 
 ### Project
 
@@ -315,84 +267,78 @@ Screen map:
 - text
 - createdAt
 
-## User Flow
+## 사용자 흐름
 
-### New User Flow
+### 신규 사용자
 
-1. open app
-2. create first project
-3. optionally create more projects
-4. mark one as focus project
-5. use home view and widget as daily entry point
+1. 앱 실행
+2. 첫 프로젝트 생성
+3. 필요하면 여러 프로젝트 추가
+4. 포커스 프로젝트 지정
+5. 홈과 위젯을 일일 진입점으로 사용
 
-### Completion Flow
+### 완료 흐름
 
-1. user completes project
-2. app asks for legacy summary
-3. project moves to completed
-4. legacy record is created
-5. support engine can now use it
+1. 프로젝트 완료
+2. 레거시 요약 입력
+3. 완료 목록 이동
+4. 레거시 레코드 생성
+5. 응원 엔진이 해당 기록 사용 가능
 
-### Daily Use Flow
+### 일상 흐름
 
-1. user sees widget
-2. user opens focus project
-3. user updates progress or milestone
-4. home refreshes support and status
+1. 사용자가 위젯을 봄
+2. 포커스 프로젝트 진입
+3. 진행률이나 마일스톤 수정
+4. 홈과 응원 문구가 갱신됨
 
-## v1 Non-Goals
+## v1 비범위
 
-These should not be in the first release:
+- 팀 협업
+- 웹 앱
+- 안드로이드 동시 출시
+- 긴 AI 코칭
+- 복잡한 통계 대시보드
+- 외부 캘린더/할 일 앱 깊은 연동
 
-- team collaboration
-- web app
-- Android release
-- AI-generated long coaching
-- complex analytics dashboards
-- deep integrations with calendar or task apps
+## 포지셔닝
 
-## Competitive Positioning
+Todoist, TickTick, ClickUp, Asana와 비교하면:
 
-Compared with Todoist, TickTick, ClickUp, and Asana:
+- 팀 협업은 약하다
+- 엔터프라이즈 프로젝트 기능은 약하다
+- 개인 서사와 감정적 연속성은 더 강하다
 
-- weaker on team collaboration
-- weaker on enterprise planning
-- stronger on personal narrative and emotional continuity
+습관 앱과 비교하면:
 
-Compared with habit trackers:
+- 스트릭 게임화는 약하다
+- 프로젝트 정체성과 레거시 의미화는 더 강하다
 
-- weaker on streak gamification
-- stronger on project identity, archives, and meaning
+## 권장 구현 순서
 
-## Recommended Build Order
+1. 데이터 모델과 로컬 저장
+2. 프로젝트 목록과 상세
+3. 완료 후 레거시 저장
+4. 응원 엔진
+5. 위젯
+6. 시각적 폴리시와 온보딩
 
-1. data model and local persistence
-2. project list and project detail
-3. project completion to legacy flow
-4. support engine
-5. widget set
-6. visual polish and onboarding
+## MVP 성공 기준
 
-## Success Criteria For MVP
+- 10개 이상 프로젝트를 혼란 없이 관리 가능
+- 포커스 프로젝트 지정 및 전환 가능
+- 완료 프로젝트를 레거시로 보존 가능
+- 과거 기록이 현재 홈에서 응원으로 작동
+- 매일 볼 가치가 있는 위젯 제공
 
-The MVP succeeds if a user can:
+## 리스크
 
-- manage more than 10 projects without confusion
-- set and switch a focus project
-- complete a project and preserve it as legacy
-- see support from past work on the home screen
-- use at least one meaningful widget every day
+1. 응원 문구가 너무 일반적이면 억지스럽게 느껴질 수 있다.
+2. 진행 중 프로젝트가 많을 때 계층이 약하면 혼잡해질 수 있다.
+3. 앱 내부 입력이 느리면 위젯 가치가 떨어진다.
 
-## Open Risks
+## 결론
 
-1. Legacy support could feel gimmicky if messages are too generic.
-2. Too many active projects could create noise if hierarchy is weak.
-3. Widget value drops if data entry inside the app is too slow.
+이 제품의 가장 강한 정의는 넓은 생산성 앱이 아니라 아래 문장이다.
 
-## Recommendation
-
-The strongest version of this product is not a broad productivity app. It is a focused personal project tracker with an unusual emotional mechanic:
-
-"Finished projects do not disappear. They keep pushing current projects forward."
-
-That idea should stay central in all UX and implementation decisions.
+`끝난 프로젝트는 사라지지 않는다. 현재 프로젝트를 계속 밀어준다.`

@@ -131,7 +131,7 @@ class GoalTrackerRepository private constructor(
         val latestLegacy = dao.getLatestLegacyNow()
         widgetSnapshotStore.write(
             WidgetSnapshot(
-                title = focus?.title ?: "No focus project",
+                title = focus?.title ?: "포커스 프로젝트 없음",
                 progress = focus?.progress ?: 0,
                 supportMessage = SupportMessageGenerator.fromLegacy(completedCount, latestLegacy?.lesson),
             ),

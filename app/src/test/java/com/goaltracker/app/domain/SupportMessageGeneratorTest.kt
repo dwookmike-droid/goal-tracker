@@ -12,7 +12,7 @@ class SupportMessageGeneratorTest {
             latestLesson = null,
         )
 
-        assertEquals("You already finished 3 projects.", result)
+        assertEquals("너는 이미 3개의 프로젝트를 끝냈다.", result)
     }
 
     @Test
@@ -22,7 +22,7 @@ class SupportMessageGeneratorTest {
             latestLesson = "Ship before it feels perfect.",
         )
 
-        assertEquals("Last lesson: Ship before it feels perfect.", result)
+        assertEquals("최근 배운 점: Ship before it feels perfect.", result)
     }
 
     @Test
@@ -32,6 +32,6 @@ class SupportMessageGeneratorTest {
             latestLesson = null,
         )
 
-        assertEquals("Start your first project and build your legacy.", result)
+        assertEquals("첫 프로젝트를 시작하고 너의 레거시를 쌓아라.", result)
     }
 }

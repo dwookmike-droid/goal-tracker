@@ -21,9 +21,9 @@ class WidgetSnapshotStore(context: Context) {
 
     fun read(): WidgetSnapshot {
         return WidgetSnapshot(
-            title = prefs.getString(KEY_TITLE, "No focus project") ?: "No focus project",
+            title = prefs.getString(KEY_TITLE, "포커스 프로젝트 없음") ?: "포커스 프로젝트 없음",
             progress = prefs.getInt(KEY_PROGRESS, 0),
-            supportMessage = prefs.getString(KEY_SUPPORT, "Create a project to get started.") ?: "Create a project to get started.",
+            supportMessage = prefs.getString(KEY_SUPPORT, "프로젝트를 만들고 시작해라.") ?: "프로젝트를 만들고 시작해라.",
         )
     }
 
